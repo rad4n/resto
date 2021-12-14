@@ -16,9 +16,16 @@ dishRouter.route('/')
 .get( async (req,res,next) => {
     res.statusCode = 200;
     res.setHeader('Content-Type', 'text/plain');
-    const [rows] = await db.query("SELECT * FROM dishes;");
-    res.json(rows);
-    next();
+    try {
+        const [rows] = await db.query("SELECT * FROM dishes;");
+        res.json(rows);
+        next();
+    } catch (error) {
+        res.statusCode = 403;
+        res.setHeader('Content-Type', 'text/json');
+        res.json({"status":"tidak bisa konek db"});
+    }
+    
 })
 .post((req, res, next) => {
     const dish = {  dish_name: req.body.dish_name,
