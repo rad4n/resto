@@ -4,8 +4,8 @@ const mysql = require("mysql2/promise");
 const config = require('config');
 
 const loginRouter = express.Router();
-
-loginRouter.use(bodyParser.json());
+loginRouter.use(express.urlencoded({ extended: true }));
+loginRouter.use(express.json());
 
 /////////////////////////////////////////////////////////////////////////////////
 loginRouter.route('/')
@@ -15,17 +15,18 @@ loginRouter.route('/')
     next();     //continue to look for additional specification that will match /dishes
 })
 .post( async (req,res,next) => {
-    user_id = req.body.user_id;
-    user_pass = req.body.user_pass;
+    let user_id = req.body.user_id;
+    let user_pass = req.body.user_pass;
+    const [uname] = await db.query(`SELECT * FROM users where user_id = "userid1";`);
+    console.log(uname.length)
 
-    const [uname] = await db.query(`SELECT * FROM users where user_id = "${user_id}";`);
 
     if(uname.length == 0){
         res.statusCode = 403;
         res.setHeader('Content-Type', 'text/json');
         res.json({"status":"false"});
     }
-    else if (uname[0].user_pass == user_pass ){
+    else if (uname[0].user_pass == 'pass1' ){
         res.statusCode = 200;
         res.setHeader('Content-Type', 'text/json');
         res.json(uname[0]);

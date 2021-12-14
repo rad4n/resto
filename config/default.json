@@ -1,13 +1,13 @@
 {
     "app": {
         "port": 3000,
-        "hostname":"localhost"
+        "hostname":"0.0.0.0"
     },
     "db": {
-        "host": "localhost",
-        "user": "root",
-        "password": "PASS1234",
-        "database":"FDMS_dev",
+        "host": "dadan.id",
+        "user": "niqsymedia_resto3",
+        "password": "w5?PfU%(U(-f",
+        "database":"niqsymedia_resto3",
         "timezone":"+00:00",
         "charset": "utf8mb4_general_ci"
     }
